@@ -7,8 +7,8 @@ class DemoController {
 	def index = {
 
 		def command = [
-//			dateTo: new Date(),
-//			keyword: 'summary',
+			dateTo: new Date(),
+			keyword: 'summary',
 			max: 10,
 			offset: 0
 		]
