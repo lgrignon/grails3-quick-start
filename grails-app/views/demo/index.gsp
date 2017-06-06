@@ -10,7 +10,12 @@
             <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
         </div>
         <div class="body">
-        Resource not found
+        ${message}
+        <ul>
+        	<g:each in="${result}" var="item">
+        		<li>${item}</li>
+        	</g:each>
+        </ul>
         </div>
     </body>
 </html>

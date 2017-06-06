@@ -1,31 +1,16 @@
-<!doctype html>
+
 <html>
     <head>
-        <title><g:if env="development">Grails Runtime Exception</g:if><g:else>Error</g:else></title>
-        <meta name="layout" content="main">
-        <g:if env="development"><asset:stylesheet src="errors.css"/></g:if>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="layout" content="main" />
+        <title>Hibernate Search Demo</title>
     </head>
     <body>
-        <g:if env="development">
-            <g:if test="${Throwable.isInstance(exception)}">
-                <g:renderException exception="${exception}" />
-            </g:if>
-            <g:elseif test="${request.getAttribute('javax.servlet.error.exception')}">
-                <g:renderException exception="${request.getAttribute('javax.servlet.error.exception')}" />
-            </g:elseif>
-            <g:else>
-                <ul class="errors">
-                    <li>An error has occurred</li>
-                    <li>Exception: ${exception}</li>
-                    <li>Message: ${message}</li>
-                    <li>Path: ${path}</li>
-                </ul>
-            </g:else>
-        </g:if>
-        <g:else>
-            <ul class="errors">
-                <li>An error has occurred</li>
-            </ul>
-        </g:else>
+        <div class="nav">
+            <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
+        </div>
+        <div class="body">
+        Some unexpected error occurred
+        </div>
     </body>
 </html>

@@ -1,0 +1,21 @@
+{
+  "name": "grails3-quick-start",
+  "author": {
+    "name": "Louis Grignon"
+  },
+  "homepage": "https://github.com/lgrignon",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": ["grails3", "hibernatesearch", "GORM6", "hibernate", "gradle", "quickstart"],
+  "devDependencies": {
+  },
+  "maintainers": [
+    {
+      "name": "louis",
+      "email": "louis.grignon@gmail.com"
+    }
+  ],
+  "directories": {},
+  "dependencies": {
+  }
+}

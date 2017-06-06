@@ -1,0 +1,15 @@
+{
+	"compilerOptions": {
+		"module": "none",
+		"removeComments": true,
+		"sourceMap": true,
+		"outDir": "src/main/resources/public/js",
+		"target": "es2015"
+	},
+	"include": [
+		"src/main/resources/public/ts/**/*.ts"
+	],
+	"exclude": [
+		".git"
+	]
+}

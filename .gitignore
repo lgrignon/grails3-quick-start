@@ -2,6 +2,7 @@ Thumbs.db
 .DS_Store
 .gradle
 build/
+classes/
 .idea
 *.iml
 *.ipr
@@ -9,3 +10,12 @@ build/
 .project
 .settings
 .classpath
+/target
+/target-eclipse/
+/plugins/
+node_modules
+/src/main/resources/public/js
+/bin/
+.classpath
+.settings
+.project

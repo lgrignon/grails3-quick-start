@@ -1,60 +1,130 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
 buildscript {
-    repositories {
-        mavenLocal()
-        maven { url "https://repo.grails.org/grails/core" }
-    }
-    dependencies {
-        classpath "org.grails:grails-gradle-plugin:$grailsVersion"
-        classpath "com.bertramlabs.plugins:asset-pipeline-gradle:2.14.1"
-        classpath "org.grails.plugins:hibernate5:${gormVersion-".RELEASE"}"
-    }
+	ext {
+		grailsVersion = project.grailsVersion
+		quickStartVersion = "1.0.0-SNAPSHOT";
+	}
+	repositories {
+		mavenLocal()
+		maven { url "https://repo.grails.org/grails/core" }
+		mavenCentral()
+		maven { url "https://repo.spring.io/plugins-snapshot" }
+		maven { url "https://repo.spring.io/snapshot" }
+		maven { url "https://repo.spring.io/milestone" }
+	}
+	dependencies {
+		classpath "org.grails:grails-gradle-plugin:$grailsVersion"
+		classpath "io.spring.gradle:dependency-management-plugin:0.6.0.BUILD-SNAPSHOT"
+	}
 }
 
-version "0.1"
+version project.quickStartVersion
 group "grails3.quick.start"
 
-apply plugin:"eclipse"
-apply plugin:"idea"
-apply plugin:"war"
-apply plugin:"org.grails.grails-web"
-apply plugin:"org.grails.grails-gsp"
-apply plugin:"asset-pipeline"
+apply plugin: "org.grails.grails-web"
+apply plugin: "eclipse"
+apply plugin: "war"
+apply plugin: "org.grails.grails-gsp"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+ext {
+
+	grailsVersion = project.grailsVersion
+	quickStartVersion = project.quickStartVersion
+	gradleWrapperVersion = project.gradleWrapperVersion
+}
 
 repositories {
-    mavenLocal()
-    maven { url "https://repo.grails.org/grails/core" }
+	mavenLocal()
+	maven { url "https://repo.grails.org/grails/core" }
+	mavenCentral()
+	maven { url "https://repository.jboss.org/nexus/content/repositories/thirdparty-releases" }
+	maven { url  "http://idcapture.bintray.com/plugins" }
+}
+
+//logger.erro☺r('grails version : ' + project.grailsVersion);
+dependencyManagement {
+	imports { mavenBom "org.grails:grails-bom:$grailsVersion" }
+	applyMavenExclusions false
 }
 
 dependencies {
-    compile "org.springframework.boot:spring-boot-starter-logging"
-    compile "org.springframework.boot:spring-boot-autoconfigure"
-    compile "org.grails:grails-core"
-    compile "org.springframework.boot:spring-boot-starter-actuator"
-    compile "org.springframework.boot:spring-boot-starter-tomcat"
-    compile "org.grails:grails-dependencies"
-    compile "org.grails:grails-web-boot"
-    compile "org.grails.plugins:cache"
-    compile "org.grails.plugins:scaffolding"
-    compile "org.grails.plugins:hibernate5"
-    compile "org.hibernate:hibernate-core:5.1.3.Final"
-    compile "org.hibernate:hibernate-ehcache:5.1.3.Final"
-    console "org.grails:grails-console"
-    profile "org.grails.profiles:web"
-    runtime "com.bertramlabs.plugins:asset-pipeline-grails:2.14.1"
-    runtime "com.h2database:h2"
-    testCompile "org.grails:grails-plugin-testing"
-    testCompile "org.grails.plugins:geb"
-    testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.47.1"
-    testRuntime "net.sourceforge.htmlunit:htmlunit:2.18"
+
+	compile "org.springframework.boot:spring-boot-autoconfigure"
+	compile("org.grails:grails-core")
+	compile("org.springframework.boot:spring-boot-starter-actuator")
+	provided "org.springframework.boot:spring-boot-starter-tomcat"
+
+	compile("org.grails:grails-dependencies")
+	compile "org.grails:grails-web-boot"	
+
+    compile "org.grails.plugins:hibernate5:6.1.4"
+    compile 'org.grails.plugins:cache'
+	
+	compile "org.hibernate:hibernate-core:5.2.9.Final"
+	compile "org.hibernate:hibernate-ehcache:5.2.9.Final"
+
+	compile "org.grails.plugins:cors:1.1.6"
+	compile 'org.grails.plugins:mail:2.0.0.RC6'
+
+	runtime "org.grails.plugins:remote-pagination:0.3"
+	console "org.grails:grails-console"
+
+	compile("org.grails.plugins:hibernate-search:2.1.0")
+
+	
+	compile("mysql:mysql-connector-java:5.1.18")
+	compile("dom4j:dom4j:1.6.1") {
+		exclude group: 'xml-apis', module: 'xml-apis'
+	}
+	compile("commons-fileupload:commons-fileupload:1.3.2")
+
+	profile "org.grails.profiles:web"
+	testCompile "org.grails:grails-plugin-testing"
+}
+
+// Windows' long path problem
+grails {  pathingJar = true  }
+
+processResources {
+	exclude('**/node_modules/**')
+	exclude('**/src/main/resources/public/**')
+	exclude('**/target/**')
 }
 
 bootRun {
-    jvmArgs('-Dspring.output.ansi.enabled=always')
-    addResources = true
+	systemProperties System.getProperties()
+	jvmArgs(
+		['-Dfile.encoding=UTF-8', '-ea', '-Xms512m', '-Xmx4096m']+ (System.getProperty("debug") != null ? ['-Xdebug', '-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=10999']: [])
+	)
+
+	addResources = true
 }
 
+eclipse {
+	project { name = 'grails3-quick-start' }
 
-assets {
-    minifyJs = true
-    minifyCss = true
+	classpath {
+		defaultOutputDir = file('target')
+
+		downloadSources = true
+		downloadJavadoc = true
+
+		file {
+			whenMerged { classpath ->
+
+				// optim: exclude resources from eclipse build path to avoid compilation to hang forever
+				classpath.entries.removeAll { entry ->
+					entry.path == 'src/main/resources'
+				}
+			}
+		}
+	}
+}
+
+task dumpDependencies << {
+	configurations.compile.each { println it }
 }
