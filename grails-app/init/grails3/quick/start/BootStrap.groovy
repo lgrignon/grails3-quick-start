@@ -3,6 +3,8 @@ package grails3.quick.start
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.RandomStringUtils
+
 class BootStrap {
 
     def init = { servletContext ->
@@ -34,7 +36,7 @@ class BootStrap {
 		}
 		
 		for (int i = 0; i < 5; i++) {
-			def exampleMongoDocument = new ExampleMongoEntity(infos: "Coucou")
+			def exampleMongoDocument = new ExampleMongoEntity(infos: "Coucou " + i + RandomStringUtils.randomAlphanumeric(10));
 			exampleMongoDocument.insert()
 			exampleMongoDocument.save()
 		}

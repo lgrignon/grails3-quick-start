@@ -47,7 +47,11 @@ class DemoController {
 		}
 
 		log.info "${result.size()} results"
+		
+		def allExamplesDocs = ExampleMongoEntity.list();
+		
+		log.info "${allExamplesDocs.size()} docs"
 
-		render(view:'index', model: [message: 'Hello world', result: result])
+		render(view:'index', model: [message: 'Hello world', result: result + allExamplesDocs])
 	}
 }
