@@ -8,6 +8,7 @@ buildscript {
 	repositories {
 		mavenLocal()
 		maven { url "https://repo.grails.org/grails/core" }
+	maven { url "https://repo.grails.org/grails/plugins" }
 		mavenCentral()
 		maven { url "https://repo.spring.io/plugins-snapshot" }
 		maven { url "https://repo.spring.io/snapshot" }
@@ -40,6 +41,7 @@ ext {
 repositories {
 	mavenLocal()
 	maven { url "https://repo.grails.org/grails/core" }
+	maven { url "https://repo.grails.org/grails/plugins" }
 	mavenCentral()
 	maven { url "https://repository.jboss.org/nexus/content/repositories/thirdparty-releases" }
 	maven { url  "http://idcapture.bintray.com/plugins" }
@@ -128,3 +130,4 @@ eclipse {
 task dumpDependencies << {
 	configurations.compile.each { println it }
 }
+

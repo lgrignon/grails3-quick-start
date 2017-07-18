@@ -15,7 +15,7 @@ println '=======================================================================
 /****************************************************
  * Datasource configuration
  */
-String databaseName = 'grails3_quickstart';
+String databaseName = 'gr3_quicks';
 String databaseUser = databaseName + "_user";
 
 trace("configuring datasource - databaseName=" + databaseName)
