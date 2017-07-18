@@ -15,6 +15,9 @@ gradlew bootRun -Dgrails.env=dev -Dserver.port=8082 --info
 ### v2.1 
 Integrates `org.grails.plugins:hibernate-search:2.1.0` with Grails 3.2.10
 
+### v2.0 
+Integrates `org.grails.plugins:hibernate-search:2.0.3` with Grails 3.1.12
+
 
 ## Authors
 
