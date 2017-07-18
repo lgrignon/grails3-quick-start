@@ -32,6 +32,12 @@ class BootStrap {
 			ExampleAggregateRoot.search().createIndexAndWait()
 	
 		}
+		
+		for (int i = 0; i < 5; i++) {
+			def exampleMongoDocument = new ExampleMongoEntity(infos: "Coucou")
+			exampleMongoDocument.insert()
+			exampleMongoDocument.save()
+		}
 				
 		println "BOOTSTRAP ENDED"
     }

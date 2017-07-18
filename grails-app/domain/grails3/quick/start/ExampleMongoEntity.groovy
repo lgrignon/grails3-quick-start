@@ -5,4 +5,8 @@ class ExampleMongoEntity {
 	String infos
 	
 	static mapWith = "mongo"
+	
+	static mapping = {
+		collection "examples"
+	}
 }

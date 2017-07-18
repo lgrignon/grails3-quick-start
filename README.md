@@ -1,6 +1,7 @@
 # grails3-quick-start
 
-A showcase to integrate [Grails Hibernate Search plugin](https://github.com/mathpere/grails-hibernate-search-plugin) in a Grails 3.2.x application.
+A showcase to integrate [Grails Hibernate Search plugin](https://github.com/mathpere/grails-hibernate-search-plugin) in a Grails 3.2.x application
+using a double persistence : MongoDB + MySQL.
 
 ## Quick start
 
@@ -11,6 +12,9 @@ gradlew bootRun -Dgrails.env=dev -Dserver.port=8082 --info
 ```
 
 ## Change log
+
+### v2.1 ~ mongodb
+Integrates `org.grails.plugins:hibernate-search:2.1.0` with Grails 3.2.10 and multiple datasources: MongoDB + MySQL
 
 ### v2.1 
 Integrates `org.grails.plugins:hibernate-search:2.1.0` with Grails 3.2.10
