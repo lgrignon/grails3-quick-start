@@ -3,7 +3,7 @@ import org.apache.tools.ant.filters.ReplaceTokens
 buildscript {
 	ext {
 		grailsVersion = project.grailsVersion
-		quickStartVersion = "2.1.0-SNAPSHOT";
+		quickStartVersion = "2.0.3-SNAPSHOT";
 	}
 	repositories {
 		mavenLocal()
@@ -63,19 +63,32 @@ dependencies {
 	compile("org.grails:grails-dependencies")
 	compile "org.grails:grails-web-boot"	
 
-    compile "org.grails.plugins:hibernate5:6.1.4"
-    compile 'org.grails.plugins:cache'
-	
-	compile "org.hibernate:hibernate-core:5.2.9.Final"
-	compile "org.hibernate:hibernate-ehcache:5.2.9.Final"
+	compile("org.grails.plugins:hibernate-search:2.0.3") {
+		exclude module: 'gorm-hibernate5-spring-boot'
+		exclude module: 'hibernate5'
+		exclude module: 'hibernate-core'
+		exclude module: 'hibernate-ehcache'
+		exclude module: 'hibernate-search-orm'
+		exclude module: 'asset-pipeline-grails'
+	}
 
+	// GORM 6 (uncomment for Grails 3.2)
+	//	compile("org.grails:gorm-hibernate5-spring-boot:6.0.0.RELEASE")
+	//	compile "org.hibernate:hibernate-core:5.2.2.Final"
+	//	compile "org.hibernate:hibernate-ehcache:5.1.1.Final"
+
+	// GORM 5
+	compile "org.grails.plugins:hibernate5:5.0.12"
+	compile "org.hibernate:hibernate-core:5.1.1.Final"
+	compile "org.hibernate:hibernate-ehcache:5.1.1.Final"
+
+	compile('org.hibernate:hibernate-search-orm:5.5.4.Final') { exclude module: 'hibernate-core' }
+	
 	compile "org.grails.plugins:cors:1.1.6"
 	compile 'org.grails.plugins:mail:2.0.0.RC6'
 
 	runtime "org.grails.plugins:remote-pagination:0.3"
 	console "org.grails:grails-console"
-
-	compile("org.grails.plugins:hibernate-search:2.1.0")
 
 	
 	compile("mysql:mysql-connector-java:5.1.18")
