@@ -23,6 +23,12 @@ grails:
     spring:
         transactionManagement:
             proxies: false
+    mongodb:
+        host: "localhost"
+        port: 27017
+        username: "test"
+        password: "test"
+        databaseName: "grails3_test_db"
 info:
     app:
         name: '@info.app.name@'
