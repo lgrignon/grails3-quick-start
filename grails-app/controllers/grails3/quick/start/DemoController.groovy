@@ -1,53 +1,83 @@
 package grails3.quick.start
 
+import org.grails.orm.hibernate.HibernateMappingContextSessionFactoryBean
+import org.hibernate.search.cfg.EntityDescriptor
+import org.hibernate.search.cfg.PropertyDescriptor
+
+import grails.core.GrailsApplication
+import grails.plugins.hibernate.search.HibernateSearchGrailsPlugin
 import grails3.quick.start.ExampleAggregateRoot.Status;
 
 class DemoController {
+	
+	GrailsApplication grailsApplication;
+	
+	def index() {
 
-	def index = {
+		Map<String, PropertyDescriptor> indexedProperties = ExampleAggregateRoot.search().getIndexedProperties();
+		println "indexedProperties: ${indexedProperties}"
+		
+		List<ExampleAggregateRoot> result;
+		if (params.search) {
 
-		def command = [
-			dateTo: new Date(),
-			keyword: 'summary',
-			max: 10,
-			offset: 0
-		]
+			result = ExampleAggregateRoot.search().list {
 
-		def result = ExampleAggregateRoot.search().list {
+				for (String filterDef : params.search.split("[:]")) {
+					String field = filterDef.split('[_]')[0]
+					String filterValue = filterDef.split('[_]')[1]
+					println "filter $field = $filterValue"
+					wildcard field, "*" + filterValue + "*" 
+				}
 
-			if ( command.dateTo ) {
-				below "publishedDate", command.dateTo
+				sort "publishedDate", "asc", Long
 			}
+		} else {
 
-			if ( command.dateFrom ) {
-				above "publishedDate", command.dateFrom
-			}
+			def command = [
+				dateTo: new Date(),
+				keyword: 'summary',
+				max: 10,
+				offset: 0
+			]
 
-			mustNot { keyword "status", Status.DISABLED }
+			result = ExampleAggregateRoot.search().list {
 
-			if ( command.keyword ) {
-				should {
-					command.keyword.tokenize().each { keyword ->
+				wildcard "author", "te*"
 
-						def wild = keyword.toLowerCase() + '*'
+				if ( command.dateTo ) {
+					below "publishedDate", command.dateTo
+				}
 
-						wildcard "author", wild
-						wildcard "body", wild
-						wildcard "summary", wild
-						wildcard "title", wild
-						wildcard "categories.name", wild
+				if ( command.dateFrom ) {
+					above "publishedDate", command.dateFrom
+				}
+
+				mustNot { keyword "status", Status.DISABLED }
+
+				if ( command.keyword ) {
+					should {
+						command.keyword.tokenize().each { keyword ->
+
+							def wild = keyword.toLowerCase() + '*'
+
+							wildcard "author", wild
+							wildcard "body", wild
+							wildcard "summary", wild
+							wildcard "title", wild
+							wildcard "categories.name", wild
+						}
 					}
 				}
+
+				sort "publishedDate", "asc", Long
+
+				maxResults command.max
+				offset command.offset
 			}
-
-			sort "publishedDate", "asc", Long
-
-			maxResults command.max
-			offset command.offset
 		}
-
+		
 		log.info "${result.size()} results"
 
-		render(view:'index', model: [message: 'Hello world', result: result])
+		render(view:'index', model: [message: 'Hello world', result: result, fieldsList: indexedProperties.keySet()])
 	}
 }

@@ -21,7 +21,7 @@ class ExampleAggregateRoot {
 
 	static search = {
 		// fields
-		author index: 'yes'
+		author index: 'yes', analyzer: 'ngram'
 		body termVector: 'with_positions'
 		publishedDate date: 'day'
 		summary boost: 5.9
@@ -30,5 +30,10 @@ class ExampleAggregateRoot {
 		categories indexEmbedded: [includeEmbeddedObjectId: true, depth: 1]
 		price numeric: 2, analyze: false
 //		someInteger index: 'yes', bridge: ['class': PaddedIntegerBridge, params: ['padding': 10]]
+	}
+	
+	@Override
+	public String toString() {
+		return getClass().getSimpleName() + ": " + properties;
 	}
 }
