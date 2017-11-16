@@ -1,4 +1,5 @@
 package grails3.quick.start
+
 import grails.boot.config.GrailsAutoConfiguration
 
 import grails.boot.GrailsApp
