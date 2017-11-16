@@ -75,7 +75,7 @@ dependencies {
 	runtime "org.grails.plugins:remote-pagination:0.3"
 	console "org.grails:grails-console"
 
-	compile("org.grails.plugins:hibernate-search:2.1.1")
+	compile("org.grails.plugins:hibernate-search:2.1.2")
 
 	
 	compile("mysql:mysql-connector-java:5.1.18")
