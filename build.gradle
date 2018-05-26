@@ -3,7 +3,7 @@ import org.apache.tools.ant.filters.ReplaceTokens
 buildscript {
 	ext {
 		grailsVersion = project.grailsVersion
-		quickStartVersion = "2.2.0-SNAPSHOT";
+		quickStartVersion = "2.3.0-SNAPSHOT";
 	}
 	repositories {
 		mavenLocal()
@@ -17,6 +17,7 @@ buildscript {
 	dependencies {
 		classpath "org.grails:grails-gradle-plugin:$grailsVersion"
 		classpath "io.spring.gradle:dependency-management-plugin:0.6.0.BUILD-SNAPSHOT"
+		classpath "com.bertramlabs.plugins:asset-pipeline-gradle:2.14.4"
 	}
 }
 
@@ -27,6 +28,7 @@ apply plugin: "org.grails.grails-web"
 apply plugin: "eclipse"
 apply plugin: "war"
 apply plugin: "org.grails.grails-gsp"
+apply plugin: "asset-pipeline"
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -65,11 +67,12 @@ dependencies {
 	runtime "org.grails.plugins:remote-pagination:0.3"
 	console "org.grails:grails-console"
 	compile 'org.grails:grails-logging'
+	runtime "com.bertramlabs.plugins:asset-pipeline-grails:2.14.4"
 	
     compile "org.grails.plugins:hibernate5:${project.gormVersion}"
-	compile "org.hibernate:hibernate-core:5.2.9.Final"
-	compile "org.hibernate:hibernate-ehcache:5.2.9.Final"
-	compile "org.grails.plugins:hibernate-search:2.2.0"
+	compile "org.hibernate:hibernate-core:5.2.10.Final"
+	compile "org.hibernate:hibernate-ehcache:5.2.10.Final"
+	compile "org.grails.plugins:hibernate-search:2.3.0-SNAPSHOT"
 
 	compile 'org.apache.tomcat:tomcat-jdbc'
 	compile("mysql:mysql-connector-java:5.1.18")

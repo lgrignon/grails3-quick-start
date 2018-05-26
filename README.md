@@ -1,6 +1,6 @@
 # grails3-quick-start
 
-A showcase to integrate [Grails Hibernate Search plugin](https://github.com/mathpere/grails-hibernate-search-plugin) in a Grails 3.2.x application.
+A showcase to integrate [Grails Hibernate Search plugin](https://github.com/mathpere/grails-hibernate-search-plugin) in a Grails 3.3.x application.
 
 ## Quick start
 
@@ -11,6 +11,12 @@ gradlew bootRun -Dgrails.env=dev -Dserver.port=8082 --info
 ```
 
 ## Change log
+
+### v2.3.0 
+Integrates `org.grails.plugins:hibernate-search:2.3.0` with Grails 3.3.1
+
+### v2.2.0 
+Integrates `org.grails.plugins:hibernate-search:2.2.0` with Grails 3.3.1
 
 ### v2.1 
 Integrates `org.grails.plugins:hibernate-search:2.1.0` with Grails 3.2.10

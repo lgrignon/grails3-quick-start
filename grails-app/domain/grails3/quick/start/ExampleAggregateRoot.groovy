@@ -21,9 +21,9 @@ class ExampleAggregateRoot {
 
 	static search = {
 		// fields
-		author index: 'yes', analyzer: 'ngram'
+		author index: 'yes', analyzer: 'ngram', boost: 5.9
 		body termVector: 'with_positions'
-		publishedDate date: 'day'
+		publishedDate date: 'day', sortable: true
 		summary boost: 5.9
 		title index: 'yes'
 		status index: 'yes'

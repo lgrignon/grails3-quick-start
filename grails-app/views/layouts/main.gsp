@@ -2,7 +2,7 @@
 <html>
     <head>
         <title><g:layoutTitle default="Grails" /></title>
-        <link rel="stylesheet" href="${resource(dir:'css',file:'main.css')}" />
+        <link rel="stylesheet" href="${resource(dir:'stylesheets',file:'main.css')}" />
         <link rel="shortcut icon" href="${resource(dir:'images',file:'favicon.ico')}" type="image/x-icon" />
         <g:layoutHead />
         <g:javascript library="application" />
@@ -13,7 +13,7 @@
         </div>
         <div id="grailsLogo">
         	<a href="/">
-        	<img width="80px" src="http://www.aurorasolutions.io/wp-content/uploads/2015/02/Grails-logo.png" 
+        	<img width="60px" src="https://grails.org/images/grails_logo.svg" 
         		alt="Grails" border="0" />
         	</a>
         </div>

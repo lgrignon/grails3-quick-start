@@ -30,6 +30,7 @@
         	var field = document.getElementById('searchField').value.trim();
         	var term = document.getElementById('searchTerm').value.trim();
         	var searchUrl = url.substring(0, url.indexOf('?') == -1 ? url.length : url.indexOf('?'));
+        	searchUrl = searchUrl.replace('#', '');
         	if (term != '' && field != '') {
 	        	searchUrl += '?search=' + field + '_' + term
         	}

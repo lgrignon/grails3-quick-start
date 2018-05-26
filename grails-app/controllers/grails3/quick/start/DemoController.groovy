@@ -15,7 +15,7 @@ class DemoController {
 	def index() {
 
 		Map<String, PropertyDescriptor> indexedProperties = ExampleAggregateRoot.search().getIndexedProperties();
-		println "indexedProperties: ${indexedProperties}"
+		println "indexedProperties: ${indexedProperties} ${ExampleAggregateRoot.search()?.getClass()}"
 		
 		List<ExampleAggregateRoot> result;
 		if (params.search) {
@@ -25,8 +25,9 @@ class DemoController {
 				for (String filterDef : params.search.split("[:]")) {
 					String field = filterDef.split('[_]')[0]
 					String filterValue = filterDef.split('[_]')[1]
-					println "filter $field = $filterValue"
-					wildcard field, "*" + filterValue + "*" 
+					String wildcardSearch = filterValue + "*"
+					println "filter $field = $wildcardSearch"
+					wildcard field, wildcardSearch
 				}
 
 				sort "publishedDate", "asc", Long
